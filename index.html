@@ -131,6 +131,15 @@
   const step = 360/numOfCards; // 360 / 6 cards
 
   const pictures = ["image1.jpg","image2.jpg","image3.jpg","image4.jpg","image5.jpg","image6.jpg","papusas.png","coding.jpg"]
+  const content = ["I have learned that here in BYU, we can make friends> This happens in and out of classes!",
+                  "This was a service project for one of my classes. We clean this guy's lights.",
+                  "We went to the Elder Kearon devotional and enojyed the temple!",
+                  "President Oaks' Devotional was amamzing. We also got pretty good seats",
+                  "American Heritage was a big part of my learning stretching experience",
+                  "My programming professor always put up a funny meme before the start of each class",
+                  "For my spanish class, I made papusas and ate them with my roommates",
+                  "One morning on campus, I apprecieted the mountains here at the Y!"
+                  ]
 
   addCards(numOfCards)
 
@@ -157,7 +166,7 @@
     // back
     const back = document.createElement("div");
     back.className = "card-face back";
-    back.textContent = "Info " + (i + 1);
+    back.textContent = content[i];
 
     inner.appendChild(front);
     inner.appendChild(back);
