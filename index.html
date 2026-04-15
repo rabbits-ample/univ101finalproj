@@ -196,7 +196,7 @@
 //   }
 
   function rotate(direction) {
-    angle += step * direction;
+    angle -= step * direction;
     carousel.style.transform = `rotateY(${angle}deg)`;
   }
 </script>
