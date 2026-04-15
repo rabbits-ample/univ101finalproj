@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>First Semester at BYU Provo</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header {
+    padding: 20px;
+    font-size: 1.5rem;
+  }
+
+  .scene {
+    width: 250px;
+    height: 300px;
+    perspective: 1000px;
+    position: relative;
+  }
+
+  .carousel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    margin-top:75px;
+  }
+
+  .card {
+    position: absolute;
+    width: 200px;
+    height: 260px;
+    left: 25px;
+    top: 20px;
+    /* background: white; */
+    color: black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+
+  .controls {
+    margin-top: 300px;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+
+  .card {
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+}
+
+.front {
+  background:none;
+}
+
+.back {
+  background: #4CAF50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(180deg);
+}
+</style>
+</head>
+<body>
+
+<header>First Semester at BYU Provo</header>
+
+<div class="scene">
+  <div class="carousel" id="carousel">
+    <!-- <div class="card" style="transform: rotateY(0deg) translateZ(300px)">1</div>
+    <div class="card" style="transform: rotateY(60deg) translateZ(300px)">2</div>
+    <div class="card" style="transform: rotateY(120deg) translateZ(300px)">3</div>
+    <div class="card" style="transform: rotateY(180deg) translateZ(300px)">4</div>
+    <div class="card" style="transform: rotateY(240deg) translateZ(300px)">5</div>
+    <div class="card" style="transform: rotateY(300deg) translateZ(300px)">6</div> -->
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="rotate(-1)">⬅</button>
+  <button onclick="rotate(1)">➡</button>
+</div>
+
+<script>
+  let angle = 0;
+    const numOfCards = 8
+
+
+  const carousel = document.getElementById("carousel");
+  const step = 360/numOfCards; // 360 / 6 cards
+
+  const pictures = ["image1.jpg","image2.jpg","image3.jpg","image4.jpg","image5.jpg","image6.jpg","papusas.png","coding.jpg"]
+
+  addCards(numOfCards)
+
+  function addCards(num){
+  for(let i = 0; i < num; i++){
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const deg = i * step;
+    const translateZ = 500;
+
+    card.style.transform = `rotateY(${deg}deg) translateZ(${translateZ}px)`;
+
+    // inner wrapper
+    const inner = document.createElement("div");
+    inner.className = "card-inner";
+
+    // front
+    const front = document.createElement("div");
+    front.className = "card-face front";
+    front.style.backgroundImage = `url('${pictures[i]}')`;
+    front.style.backgroundSize = "cover";
+
+    // back
+    const back = document.createElement("div");
+    back.className = "card-face back";
+    back.textContent = "Info " + (i + 1);
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
+
+    // click flip
+    card.addEventListener("click", function(e){
+      e.stopPropagation(); // prevents weird bubbling
+      card.classList.toggle("flipped");
+    });
+
+    carousel.appendChild(card);
+  }
+}
+
+//   function addCards(num){
+//     for(var i = 0; i < num; i++){
+//         var card = document.createElement("div")
+//         card.className = "card"
+//         var deg = i*step
+//         var tranlsateZ = 500
+//         card.style.transform = `rotateY(${deg}deg) translateZ(${tranlsateZ}px)`
+//         card.style.backgroundImage = `url('${pictures[i]}') `
+//         card.style.backgroundSize = "cover"
+//         carousel.appendChild(card)
+//     }
+//   }
+
+  function rotate(direction) {
+    angle += step * direction;
+    carousel.style.transform = `rotateY(${angle}deg)`;
+  }
+</script>
+
+</body>
+</html>
